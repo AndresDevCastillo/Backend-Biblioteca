@@ -5,6 +5,8 @@ import { EstadoEquipoModule } from './estado-equipo/estado-equipo.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EstadoEquipo } from './estado-equipo/entities/estado-equipo.entity';
 import { DataSource } from 'typeorm';
+import { PrestamoEstadoModule } from './prestamo-estado/prestamo-estado.module';
+import { PrestamoEstado } from './prestamo-estado/entities/prestamo-estado.entity';
 
 @Module({
   imports: [
@@ -15,10 +17,10 @@ import { DataSource } from 'typeorm';
       username: 'root',
       password: '',
       database: 'biblioteca',
-      entities: [EstadoEquipo],
+      entities: [EstadoEquipo,PrestamoEstado],
       synchronize: true,
       autoLoadEntities: true
-    }), EstadoEquipoModule],
+    }), EstadoEquipoModule, PrestamoEstadoModule],
   controllers: [AppController],
   providers: [AppService],
 })
