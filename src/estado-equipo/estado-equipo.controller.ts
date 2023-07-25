@@ -1,14 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { EstadoEquipoService } from './estado-equipo.service';
 import { CreateEstadoEquipoDto } from './dto/create-estado-equipo.dto';
 import { UpdateEstadoEquipoDto } from './dto/update-estado-equipo.dto';
+
 
 @Controller('estado-equipo')
 export class EstadoEquipoController {
   constructor(private readonly estadoEquipoService: EstadoEquipoService) { }
 
+
   @Post('/crear')
-  create(@Body() createEstadoEquipoDto: CreateEstadoEquipoDto) {
+  create(@Body(new ValidationPipe()) createEstadoEquipoDto: CreateEstadoEquipoDto) {
     console.log(createEstadoEquipoDto);
     return this.estadoEquipoService.create(createEstadoEquipoDto);
   }
@@ -18,9 +20,9 @@ export class EstadoEquipoController {
     return this.estadoEquipoService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.estadoEquipoService.findOne(+id);
+  @Get('/:id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.estadoEquipoService.findOne(id);
   }
 
   @Patch(':id')
