@@ -18,7 +18,8 @@ import { DataSource } from 'typeorm';
       entities: [EstadoEquipo],
       synchronize: true,
       autoLoadEntities: true
-    }), EstadoEquipoModule],
+    },
+    ), EstadoEquipoModule],
   controllers: [AppController],
   providers: [AppService],
 })
