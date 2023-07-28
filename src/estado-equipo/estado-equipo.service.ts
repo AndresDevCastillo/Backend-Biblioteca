@@ -13,10 +13,10 @@ export class EstadoEquipoService {
   ) { }
 
   async create(createEstadoEquipoDto: CreateEstadoEquipoDto) {
-    const existe = await this.validarExiste(createEstadoEquipoDto.Estado);
+    const existe = await this.validarExiste(createEstadoEquipoDto.estado);
     console.log(existe);
 
-    if (existe) { return new BadRequestException(`El Estado con el nombre ${createEstadoEquipoDto.Estado} ya existe`) }
+    if (existe) { return new BadRequestException(`El Estado con el nombre ${createEstadoEquipoDto.estado} ya existe`) }
     try {
       const EstadoCreado = this.estadoEquipoRepository.create(createEstadoEquipoDto);
       await this.estadoEquipoRepository.save(EstadoCreado);
@@ -53,16 +53,44 @@ export class EstadoEquipoService {
     }
   }
 
-  update(id: number, updateEstadoEquipoDto: UpdateEstadoEquipoDto) {
-    return `This action updates a #${id} estadoEquipo`;
+  async delete(id: number) {
+    const existe = await this.validarExisteId(id);
+    if (existe) {
+      try {
+        return await this.estadoEquipoRepository.delete(id);
+      }
+      catch (error) {
+        console.log(error);
+        return new InternalServerErrorException('Error al eliminar por ese id');
+      }
+    }
+    return new NotFoundException(`El id: ${id} no existe`);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} estadoEquipo`;
+  async update(EstadoUpdate: UpdateEstadoEquipoDto) {
+    const existe = await this.validarExisteId(EstadoUpdate.id);
+    if (existe) {
+      try {
+        return await this.estadoEquipoRepository.update(EstadoUpdate.id, EstadoUpdate);
+      }
+      catch (error) {
+        console.log(error);
+        return new InternalServerErrorException('Se presento un error actualizando');
+      }
+
+    }
+    return new NotFoundException('No existe un estado equipo');
   }
 
-  async validarExiste(Estado: string) {
-    const resp = await this.estadoEquipoRepository.findOneBy({ Estado: Estado });
+  async validarExiste(estado: string) {
+    const resp = await this.estadoEquipoRepository.findOneBy({ estado: estado });
+    if (resp) {
+      return true;
+    }
+    return false;
+  }
+  async validarExisteId(id: number) {
+    const resp = await this.estadoEquipoRepository.findOneBy({ id: id });
     if (resp) {
       return true;
     }

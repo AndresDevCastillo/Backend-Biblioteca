@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EstadoEquipo } from './estado-equipo/entities/estado-equipo.entity';
 import { DataSource } from 'typeorm';
 import { TipoEquipoModule } from './tipo-equipo/tipo-equipo.module';
+import { TipoEquipo } from './tipo-equipo/entities/tipo-equipo.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { TipoEquipoModule } from './tipo-equipo/tipo-equipo.module';
       username: 'root',
       password: '',
       database: 'biblioteca',
-      entities: [EstadoEquipo],
+      entities: [EstadoEquipo, TipoEquipo],
       synchronize: true,
       autoLoadEntities: true,
     }),

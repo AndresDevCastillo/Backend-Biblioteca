@@ -6,8 +6,8 @@ import { TipoEquipo } from './entities/tipo-equipo.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TipoEquipo])],
-
   controllers: [TipoEquipoController],
   providers: [TipoEquipoService],
+  exports: [TypeOrmModule],
 })
 export class TipoEquipoModule {}

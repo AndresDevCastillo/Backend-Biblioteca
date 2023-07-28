@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+  Put,
+} from '@nestjs/common';
 import { TipoEquipoService } from './tipo-equipo.service';
 import { CreateTipoEquipoDto } from './dto/create-tipo-equipo.dto';
 import { UpdateTipoEquipoDto } from './dto/update-tipo-equipo.dto';
@@ -7,28 +17,28 @@ import { UpdateTipoEquipoDto } from './dto/update-tipo-equipo.dto';
 export class TipoEquipoController {
   constructor(private readonly tipoEquipoService: TipoEquipoService) {}
 
-  @Post()
-  create(@Body() createTipoEquipoDto: CreateTipoEquipoDto) {
-    return this.tipoEquipoService.create(createTipoEquipoDto);
+  @Post('/crear')
+  async create(@Body() createTipoEquipoDto: CreateTipoEquipoDto) {
+    return await this.tipoEquipoService.create(createTipoEquipoDto);
   }
 
   @Get()
-  findAll() {
-    return this.tipoEquipoService.findAll();
+  async findAll() {
+    return await this.tipoEquipoService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tipoEquipoService.findOne(+id);
+  @Get('/:id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.tipoEquipoService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTipoEquipoDto: UpdateTipoEquipoDto) {
-    return this.tipoEquipoService.update(+id, updateTipoEquipoDto);
+  @Put()
+  async update(@Body() tipoEquipo: UpdateTipoEquipoDto) {
+    return this.tipoEquipoService.update(tipoEquipo);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tipoEquipoService.remove(+id);
+  @Delete('/:id')
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return this.tipoEquipoService.remove(id);
   }
 }
