@@ -13,10 +13,10 @@ export class EstadoEquipoService {
   ) { }
 
   async create(createEstadoEquipoDto: CreateEstadoEquipoDto) {
-    const existe = await this.validarExiste(createEstadoEquipoDto.Estado);
+    const existe = await this.validarExiste(createEstadoEquipoDto.estado);
     console.log(existe);
 
-    if (existe) { return new BadRequestException(`El Estado con el nombre ${createEstadoEquipoDto.Estado} ya existe`) }
+    if (existe) { return new BadRequestException(`El Estado con el nombre ${createEstadoEquipoDto.estado} ya existe`) }
     try {
       const EstadoCreado = this.estadoEquipoRepository.create(createEstadoEquipoDto);
       await this.estadoEquipoRepository.save(EstadoCreado);
@@ -82,8 +82,8 @@ export class EstadoEquipoService {
     return new NotFoundException('No existe un estado equipo');
   }
 
-  async validarExiste(Estado: string) {
-    const resp = await this.estadoEquipoRepository.findOneBy({ Estado: Estado });
+  async validarExiste(estado: string) {
+    const resp = await this.estadoEquipoRepository.findOneBy({ estado: estado });
     if (resp) {
       return true;
     }
