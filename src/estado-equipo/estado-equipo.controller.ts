@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, ParseIntPipe, Put } from '@nestjs/common';
 import { EstadoEquipoService } from './estado-equipo.service';
 import { CreateEstadoEquipoDto } from './dto/create-estado-equipo.dto';
 import { UpdateEstadoEquipoDto } from './dto/update-estado-equipo.dto';
@@ -25,13 +25,15 @@ export class EstadoEquipoController {
     return this.estadoEquipoService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstadoEquipoDto: UpdateEstadoEquipoDto) {
-    return this.estadoEquipoService.update(+id, updateEstadoEquipoDto);
+  @Delete('/:id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.estadoEquipoService.delete(id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.estadoEquipoService.remove(+id);
+  @Put()
+  update(@Body() estado: UpdateEstadoEquipoDto) {
+    return this.estadoEquipoService.update(estado);
   }
+
+
 }
