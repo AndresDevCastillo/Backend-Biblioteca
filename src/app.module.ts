@@ -5,6 +5,7 @@ import { EstadoEquipoModule } from './estado-equipo/estado-equipo.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EstadoEquipo } from './estado-equipo/entities/estado-equipo.entity';
 import { DataSource } from 'typeorm';
+import { TipoEquipoModule } from './tipo-equipo/tipo-equipo.module';
 
 @Module({
   imports: [
@@ -17,12 +18,14 @@ import { DataSource } from 'typeorm';
       database: 'biblioteca',
       entities: [EstadoEquipo],
       synchronize: true,
-      autoLoadEntities: true
-    },
-    ), EstadoEquipoModule],
+      autoLoadEntities: true,
+    }),
+    EstadoEquipoModule,
+    TipoEquipoModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) { }
+  constructor(private dataSource: DataSource) {}
 }

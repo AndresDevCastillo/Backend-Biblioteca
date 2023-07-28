@@ -1,10 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class EstadoEquipo {
+export class TipoEquipo {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column({ length: 20 })
-  Estado: string;
+  
+  @Column({type:'varchar', length:20})
+  tipo:string;
 }
