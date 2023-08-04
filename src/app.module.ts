@@ -7,6 +7,10 @@ import { EstadoEquipo } from './estado-equipo/entities/estado-equipo.entity';
 import { DataSource } from 'typeorm';
 import { PrestamoEstadoModule } from './prestamo-estado/prestamo-estado.module';
 import { PrestamoEstado } from './prestamo-estado/entities/prestamo-estado.entity';
+import { TipoEquipoModule } from './tipo-equipo/tipo-equipo.module';
+import { RolesModule } from './roles/roles.module';
+import { UsuarioModule } from './usuario/usuario.module';
+import { EquipoModule } from './equipo/equipo.module';
 
 @Module({
   imports: [
@@ -20,7 +24,7 @@ import { PrestamoEstado } from './prestamo-estado/entities/prestamo-estado.entit
       entities: [EstadoEquipo,PrestamoEstado],
       synchronize: true,
       autoLoadEntities: true
-    }), EstadoEquipoModule, PrestamoEstadoModule],
+    }), EstadoEquipoModule, PrestamoEstadoModule, TipoEquipoModule, RolesModule, UsuarioModule, EquipoModule],
   controllers: [AppController],
   providers: [AppService],
 })
