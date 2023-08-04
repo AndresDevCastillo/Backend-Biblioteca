@@ -7,6 +7,6 @@ export class CreateRolesDto {
     @Matches(/^(?!\s*$).+/, { message: 'El Estado no puede ser estar vacío' })
     @MinLength(1)
     @MaxLength(20)
-    readonly Descripcion: string;
+    readonly descripcion: string;
 
 }

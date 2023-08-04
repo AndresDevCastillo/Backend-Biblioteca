@@ -7,7 +7,7 @@ export class CreatePrestamoEstado{
     @Matches(/^(?!\s*$).+/, { message: 'El Estado no puede ser estar vacío' })
     @MinLength(1)
     @MaxLength(20)
-    readonly Estado: string;
+    readonly estado: string;
 
    
 

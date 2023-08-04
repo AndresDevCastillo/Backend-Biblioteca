@@ -7,6 +7,6 @@ export class EstadoEquipo {
     id: number;
 
     @Column({ length: 20 })
-    Estado: string;
+    estado: string;
 
 }

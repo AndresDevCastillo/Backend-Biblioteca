@@ -8,9 +8,9 @@ export class Equipo {
     id: number;
 
     @Column()
-    Serial: string;
+    serial: string;
 
     @Column()
-    Descripcion: string;
+    descripcion: string;
 
 }

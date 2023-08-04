@@ -7,6 +7,6 @@ export class TipoEquipo {
     id: number;
 
     @Column({ length: 30 })
-    Tipo: string;
+    tipo: string;
 
 }

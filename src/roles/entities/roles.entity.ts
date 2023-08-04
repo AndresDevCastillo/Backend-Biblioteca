@@ -7,6 +7,6 @@ export class Roles {
     id: number;
 
     @Column({ length: 20 })
-    Descripcion: string;
+    descripcion: string;
 
 }

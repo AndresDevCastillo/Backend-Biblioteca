@@ -8,12 +8,12 @@ export class CreateEquipoDto {
     @Matches(/^(?!\s*$).+/, { message: 'El Estado no puede ser estar vacío' })
     @MinLength(1)
     @MaxLength(30)
-    readonly Serial: string;
+    readonly serial: string;
 
     @IsString()
     @IsNotEmpty()
     @Matches(/^(?!\s*$).+/, { message: 'El Estado no puede ser estar vacío' })
     @MinLength(1)
     @MaxLength(255)
-    readonly Descripcion: string;
+    readonly descripcion: string;
 }

@@ -6,5 +6,5 @@ export class PrestamoEstado {
     id: number;
 
     @Column({ length: 20 })
-    Estado: string;
+    estado: string;
 }

@@ -7,5 +7,5 @@ export class CreateTipoEquipoDto {
     @Matches(/^(?!\s*$).+/, { message: 'El Estado no puede ser estar vacío' })
     @MinLength(1)
     @MaxLength(30)
-    readonly Tipo: string;
+    readonly tipo: string;
 }
