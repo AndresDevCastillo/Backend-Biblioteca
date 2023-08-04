@@ -5,11 +5,12 @@ import { EstadoEquipoModule } from './estado-equipo/estado-equipo.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EstadoEquipo } from './estado-equipo/entities/estado-equipo.entity';
 import { DataSource } from 'typeorm';
-import { TiposEquipoModule } from './tipos-equipo/tipos-equipo.module';
-import { EstadoPrestamoModule } from './estado-prestamo/estado-prestamo.module';
-import { EstadoPrestamo } from './estado-prestamo/entities/estado-prestamo.entity';
-import { TiposEquipo } from './tipos-equipo/entities/tipos-equipo.entity';
+import { PrestamoEstadoModule } from './prestamo-estado/prestamo-estado.module';
+import { PrestamoEstado } from './prestamo-estado/entities/prestamo-estado.entity';
+import { TipoEquipoModule } from './tipo-equipo/tipo-equipo.module';
+import { RolesModule } from './roles/roles.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { EquipoModule } from './equipo/equipo.module';
 
 @Module({
   imports: [
