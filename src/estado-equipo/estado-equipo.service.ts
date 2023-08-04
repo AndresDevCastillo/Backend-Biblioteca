@@ -17,7 +17,7 @@ export class EstadoEquipoService {
   }
 
   findAll() {
-    return `This action returns all estadoEquipo`;
+    return this.estadoEquipoRepository.find();
   }
 
   findOne(id: number) {

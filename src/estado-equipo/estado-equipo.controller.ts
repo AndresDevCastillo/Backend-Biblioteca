@@ -5,10 +5,11 @@ import { UpdateEstadoEquipoDto } from './dto/update-estado-equipo.dto';
 
 @Controller('estado-equipo')
 export class EstadoEquipoController {
-  constructor(private readonly estadoEquipoService: EstadoEquipoService) {}
+  constructor(private readonly estadoEquipoService: EstadoEquipoService) { }
 
-  @Post()
+  @Post('/crear')
   create(@Body() createEstadoEquipoDto: CreateEstadoEquipoDto) {
+    console.log(createEstadoEquipoDto);
     return this.estadoEquipoService.create(createEstadoEquipoDto);
   }
 
