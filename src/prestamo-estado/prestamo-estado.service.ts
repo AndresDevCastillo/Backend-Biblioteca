@@ -13,7 +13,7 @@ export class PrestamoEstadoService {
     ) { }
 
     async CrearPrestamoEstado(Prestamo: CreatePrestamoEstado) {
-        const existeEstado = await this.tablaPrestamoEstado.find({ where: { Estado: Prestamo.Estado } });
+        const existeEstado = await this.tablaPrestamoEstado.find({ where: { estado: Prestamo.estado } });
         console.log(existeEstado);
         if (existeEstado.length == 0) {
             return await this.tablaPrestamoEstado.insert(Prestamo);

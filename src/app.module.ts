@@ -8,9 +8,11 @@ import { DataSource } from 'typeorm';
 import { PrestamoEstadoModule } from './prestamo-estado/prestamo-estado.module';
 import { PrestamoEstado } from './prestamo-estado/entities/prestamo-estado.entity';
 import { TipoEquipoModule } from './tipo-equipo/tipo-equipo.module';
-import { RolesModule } from './roles/roles.module';
+import { RolModule } from './rol/rol.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { EquipoModule } from './equipo/equipo.module';
+import { TipoEquipo } from './tipo-equipo/entities/tipo-equipo.entity';
+import { Rol } from './rol/entities/rol.entity';
 
 @Module({
   imports: [
@@ -20,11 +22,11 @@ import { EquipoModule } from './equipo/equipo.module';
       port: 3306,
       username: 'root',
       password: '',
-      database: 'bibliotecasena',
-      entities: [EstadoEquipo, EstadoPrestamo,TiposEquipo],
+      database: 'biblioteca',
+      entities: [EstadoEquipo, PrestamoEstado,TipoEquipo,Rol],
       synchronize: true,
       autoLoadEntities: true
-    }), EstadoEquipoModule, TiposEquipoModule, EstadoPrestamoModule, UsuarioModule],
+    }), EstadoEquipoModule, TipoEquipoModule, PrestamoEstadoModule, UsuarioModule, RolModule, EquipoModule],
   controllers: [AppController],
   providers: [AppService],
 })
