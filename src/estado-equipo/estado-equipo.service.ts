@@ -12,23 +12,27 @@ export class EstadoEquipoService {
     private estadoEquipoRepository: Repository<EstadoEquipo>,
   ) { }
 
-  create(createEstadoEquipoDto: CreateEstadoEquipoDto) {
+  createEstadoEquipo(createEstadoEquipoDto: CreateEstadoEquipoDto) {
     return this.estadoEquipoRepository.insert(createEstadoEquipoDto);
   }
 
-  findAll() {
+  getEstadoEquipos() {
     return this.estadoEquipoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} estadoEquipo`;
+  getEstadoEquipo(id: number) {
+    return this.estadoEquipoRepository.findOne({
+      where: {
+        id
+      }
+    });
   }
 
-  update(id: number, updateEstadoEquipoDto: UpdateEstadoEquipoDto) {
-    return `This action updates a #${id} estadoEquipo`;
+  updateEstadoEquipo(id: number, updateEstadoEquipoDto: UpdateEstadoEquipoDto) {
+    return this.estadoEquipoRepository.update({id}, updateEstadoEquipoDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} estadoEquipo`;
+  deleteEstadoEquipo(id: number) {
+    return this.estadoEquipoRepository.delete({id});
   }
 }

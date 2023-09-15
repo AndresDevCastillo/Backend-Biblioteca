@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -5,14 +6,22 @@ import { EstadoEquipoModule } from './estado-equipo/estado-equipo.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EstadoEquipo } from './estado-equipo/entities/estado-equipo.entity';
 import { DataSource } from 'typeorm';
-import { PrestamoEstadoModule } from './prestamo-estado/prestamo-estado.module';
-import { PrestamoEstado } from './prestamo-estado/entities/prestamo-estado.entity';
 import { TipoEquipoModule } from './tipo-equipo/tipo-equipo.module';
 import { RolModule } from './rol/rol.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { EquipoModule } from './equipo/equipo.module';
 import { TipoEquipo } from './tipo-equipo/entities/tipo-equipo.entity';
 import { Rol } from './rol/entities/rol.entity';
+import { Usuario } from './usuario/entities/usuario.entity';
+import { NovedadModule } from './novedad/novedad.module';
+import { PrestamoModule } from './prestamo/prestamo.module';
+import { EstadoPrestamoModule } from './estado-prestamo/estado-prestamo.module';
+import { DetallePrestamoModule } from './detalle-prestamo/detalle-prestamo.module';
+import { Equipo } from './equipo/entities/equipo.entity';
+import { Novedad } from './novedad/entities/novedad.entity';
+import { Prestamo } from './prestamo/entities/prestamo.entity';
+import { EstadoPrestamo } from './estado-prestamo/entities/estado-prestamo.entity';
+import { DetallePrestamo } from './detalle-prestamo/entities/detalle-prestamo.entity';
 
 @Module({
   imports: [
@@ -23,10 +32,20 @@ import { Rol } from './rol/entities/rol.entity';
       username: 'root',
       password: '',
       database: 'biblioteca',
-      entities: [EstadoEquipo, PrestamoEstado,TipoEquipo,Rol],
+      entities: [EstadoEquipo,TipoEquipo,Rol, Usuario, Equipo, Novedad, Prestamo, EstadoPrestamo, DetallePrestamo],
       synchronize: true,
       autoLoadEntities: true
-    }), EstadoEquipoModule, TipoEquipoModule, PrestamoEstadoModule, UsuarioModule, RolModule, EquipoModule],
+    }),
+    EstadoEquipoModule,
+    TipoEquipoModule,
+    UsuarioModule,
+    RolModule,
+    EquipoModule,
+    NovedadModule,
+    PrestamoModule,
+    EstadoPrestamoModule,
+    DetallePrestamoModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

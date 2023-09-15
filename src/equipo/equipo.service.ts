@@ -12,24 +12,28 @@ export class EquipoService {
         private equipoRepository: Repository<Equipo>,
     ){}
 
-create(createEquipoDto: CreateEquipoDto) {
+createEquipo(createEquipoDto: CreateEquipoDto) {
     return this.equipoRepository.insert(createEquipoDto);
   }
 
-  findAll() {
+  getEquipos() {
     return this.equipoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} estadoEquipo`;
+  getEquipo(id: number) {
+    return this.equipoRepository.findOne({
+      where: {
+        id
+      }
+    });
   }
 
-  update(id: number, updateEstadoEquipoDto: UpdateEquipoDto) {
-    return `This action updates a #${id} estadoEquipo`;
+  updateEquipo(id: number, updateEstadoEquipoDto: UpdateEquipoDto) {
+    return this.equipoRepository.update({id}, updateEstadoEquipoDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} estadoEquipo`;
+  deleteEquipo(id: number) {
+    return this.equipoRepository.delete({id});
   }
 }
 

@@ -7,27 +7,31 @@ import { UpdateRolDto } from './dto/update-rol.dto';
 
 @Injectable()
 export class RolService {
-  constructor(
-    @InjectRepository(Rol)
-    private rolRepository: Repository<Rol>,
-){}
-create(createrolDto: CreateRolDto) {
-  return this.rolRepository.insert(createrolDto);
-}
+    constructor(
+        @InjectRepository(Rol) private rolRepository: Repository<Rol>,
+    ){}
+    createRol(createrolDto: CreateRolDto) {
+      return this.rolRepository.insert(createrolDto);
+    }
 
-findAll() {
-  return this.rolRepository.find();
-}
+    getRoles() {
+      return this.rolRepository.find();
+    }
 
-findOne(id: number) {
-  return `This action returns a #${id} rol`;
-}
+    getRol(id: number) {
+      return this.rolRepository.findOne({
+        where: {
+          id
+        }
+      });
+    }
 
-update(id: number, updaterolDto: UpdateRolDto) {
-  return `This action updates a #${id} rol`;
-}
+    deleteRol(id:number){
+      return this.rolRepository.delete({id});
+    }
+    
+    updateRol(id:number, rol: UpdateRolDto){
+      return this.rolRepository.update({id}, rol);
+    }
 
-remove(id: number) {
-  return `This action removes a #${id} rol`;
-}
 }

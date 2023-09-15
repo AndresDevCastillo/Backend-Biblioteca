@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, Matches, MaxLength, MinLength } from "class-validator";
 
 
-export class UpdateUsuario {
+export class CreateUsuarioDto {
 
     @IsString()
     @IsNotEmpty()
@@ -26,7 +26,6 @@ export class UpdateUsuario {
     @Matches(/^(?!\s*$).+/, { message: 'El Estado no puede ser estar vacío' })
     @MinLength(1)
     @MaxLength(50)
-
     readonly email: string;
     
 }

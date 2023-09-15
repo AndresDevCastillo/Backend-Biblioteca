@@ -7,27 +7,29 @@ import { TipoEquipo } from './entities/tipo-equipo.entity';
 
 @Injectable()
 export class TipoEquipoService {
-  constructor(
-    @InjectRepository(TipoEquipo)
-    private TipoEquipoRepository: Repository<TipoEquipo>,
+  constructor(@InjectRepository(TipoEquipo) private tipoEquipoRepository: Repository<TipoEquipo>,
 ){}
-create(createTipoEquipoDto: CreateTipoEquipoDto) {
-  return this.TipoEquipoRepository.insert(createTipoEquipoDto);
+createTipoEquipo(createTipoEquipoDto: CreateTipoEquipoDto) {
+  return this.tipoEquipoRepository.insert(createTipoEquipoDto);
 }
 
-findAll() {
-  return this.TipoEquipoRepository.find();
+getTipoEquipos() {
+  return this.tipoEquipoRepository.find();
 }
 
-findOne(id: number) {
-  return `This action returns a #${id} TipoEquipo`;
+getTipoEquipo(id: number) {
+  return this.tipoEquipoRepository.findOne({
+    where: {
+      id
+    }
+  });
 }
 
-update(id: number, updateTipoEquipoDto: UpdateTipoEquipoDto) {
-  return `This action updates a #${id} TipoEquipo`;
+updateTipoEquipo(id: number, tipoEquipo: UpdateTipoEquipoDto) {
+  return this.tipoEquipoRepository.update({id}, tipoEquipo);
 }
 
-remove(id: number) {
-  return `This action removes a #${id} TipoEquipo`;
+deleteTipoEquipo(id: number) {
+  return this.tipoEquipoRepository.delete({id});
 }
 }
