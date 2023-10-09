@@ -30,7 +30,7 @@ import { DetallePrestamo } from './detalle-prestamo/entities/detalle-prestamo.en
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '',
+      password: '@nlolX10',
       database: 'biblioteca',
       entities: [EstadoEquipo,TipoEquipo,Rol, Usuario, Equipo, Novedad, Prestamo, EstadoPrestamo, DetallePrestamo],
       synchronize: true,

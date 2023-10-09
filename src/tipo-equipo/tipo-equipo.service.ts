@@ -7,29 +7,33 @@ import { TipoEquipo } from './entities/tipo-equipo.entity';
 
 @Injectable()
 export class TipoEquipoService {
-  constructor(@InjectRepository(TipoEquipo) private tipoEquipoRepository: Repository<TipoEquipo>,
-){}
-createTipoEquipo(createTipoEquipoDto: CreateTipoEquipoDto) {
-  return this.tipoEquipoRepository.insert(createTipoEquipoDto);
-}
+  constructor(
+    @InjectRepository(TipoEquipo)
+    private tipoEquipoRepository: Repository<TipoEquipo>,
+  ) {}
+  async createTipoEquipo(createTipoEquipoDto: CreateTipoEquipoDto) {
+    return await this.tipoEquipoRepository.insert(createTipoEquipoDto);
+  }
 
-getTipoEquipos() {
-  return this.tipoEquipoRepository.find();
-}
+  async getTipoEquipos() {
+    return await this.tipoEquipoRepository.find();
+  }
 
-getTipoEquipo(id: number) {
-  return this.tipoEquipoRepository.findOne({
-    where: {
-      id
-    }
-  });
-}
+  getTipoEquipo(id: number) {
+    return this.tipoEquipoRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+  async getPorTipo(tipo: string) {
+    return await this.tipoEquipoRepository.find({ where: { tipo: tipo } });
+  }
+  updateTipoEquipo(id: number, tipoEquipo: UpdateTipoEquipoDto) {
+    return this.tipoEquipoRepository.update({ id }, tipoEquipo);
+  }
 
-updateTipoEquipo(id: number, tipoEquipo: UpdateTipoEquipoDto) {
-  return this.tipoEquipoRepository.update({id}, tipoEquipo);
-}
-
-deleteTipoEquipo(id: number) {
-  return this.tipoEquipoRepository.delete({id});
-}
+  deleteTipoEquipo(id: number) {
+    return this.tipoEquipoRepository.delete({ id });
+  }
 }
