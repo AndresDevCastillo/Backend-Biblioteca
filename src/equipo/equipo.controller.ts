@@ -1,4 +1,14 @@
-import { Body, Controller, Param, Post, Get, Patch, Delete, ParseIntPipe, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  Post,
+  Get,
+  Patch,
+  Delete,
+  ParseIntPipe,
+  Put,
+} from '@nestjs/common';
 import { EquipoService } from './equipo.service';
 import { CreateEquipoDto } from './dto/create-equipo.dto';
 import { UpdateEquipoDto } from './dto/update-equipo.dto';
@@ -8,14 +18,13 @@ import { Equipo } from './entities/equipo.entity';
 export class EquipoController {
   constructor(private readonly equipoService: EquipoService) {}
 
-
-@Post('/crearEquipo')
-createEquipo(@Body() CreateEquipoDto: CreateEquipoDto){
-  return this.equipoService.createEquipo(CreateEquipoDto)
-}
-@Get('/obtenerEquipos')
-  getEquipos(): Promise<Equipo[]> {
-    return this.equipoService.getEquipos();
+  @Post('/crearEquipo')
+  createEquipo(@Body() CreateEquipoDto: CreateEquipoDto) {
+    return this.equipoService.createEquipo(CreateEquipoDto);
+  }
+  @Get()
+  async getEquipos(): Promise<Equipo[]> {
+    return await this.equipoService.getEquipos();
   }
 
   @Get('/obtenerEquipo/:id')
@@ -24,7 +33,10 @@ createEquipo(@Body() CreateEquipoDto: CreateEquipoDto){
   }
 
   @Put(':id')
-  updateEquipo(@Param('id', ParseIntPipe) id: number, @Body() updateEquipoDto: UpdateEquipoDto) {
+  updateEquipo(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateEquipoDto: UpdateEquipoDto,
+  ) {
     return this.equipoService.updateEquipo(id, updateEquipoDto);
   }
 
