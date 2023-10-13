@@ -31,14 +31,8 @@ export class CreateEquipoDto {
   readonly serial: string;
 
   @IsNotEmpty()
-  @Matches(/^(?!\s*$).+/, {
-    message: 'El estado del equipo no puede ser estar vacío',
-  })
   readonly estado_equipo: EstadoEquipo;
 
   @IsNotEmpty()
-  @Matches(/^(?!\s*$).+/, {
-    message: 'El tipo del equipo no puede ser estar vacío',
-  })
   readonly tipo_equipo: TipoEquipo;
 }

@@ -23,10 +23,14 @@ export class Equipo {
   @Column({ type: 'varchar', length: 45 })
   serial: string;
 
-  @ManyToOne(() => EstadoEquipo, (estado_equipo) => estado_equipo.equipo)
+  @ManyToOne(() => EstadoEquipo, (estado_equipo) => estado_equipo.equipo, {
+    eager: true,
+  })
   estado_equipo: EstadoEquipo;
 
-  @ManyToOne(() => TipoEquipo, (tipo_equipo) => tipo_equipo.equipo)
+  @ManyToOne(() => TipoEquipo, (tipo_equipo) => tipo_equipo.equipo, {
+    eager: true,
+  })
   tipo_equipo: TipoEquipo;
 
   @OneToMany(

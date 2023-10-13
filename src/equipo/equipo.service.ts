@@ -12,8 +12,8 @@ export class EquipoService {
     private equipoRepository: Repository<Equipo>,
   ) {}
 
-  createEquipo(createEquipoDto: CreateEquipoDto) {
-    return this.equipoRepository.insert(createEquipoDto);
+  async createEquipo(createEquipoDto: CreateEquipoDto) {
+    return await this.equipoRepository.insert(createEquipoDto);
   }
 
   async getEquipos() {
@@ -32,7 +32,7 @@ export class EquipoService {
     return this.equipoRepository.update({ id }, updateEstadoEquipoDto);
   }
 
-  deleteEquipo(id: number) {
-    return this.equipoRepository.delete({ id });
+  async deleteEquipo(id: number) {
+    return await this.equipoRepository.delete({ id });
   }
 }
