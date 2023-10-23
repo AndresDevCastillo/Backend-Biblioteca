@@ -25,6 +25,6 @@ export class Usuario {
   @ManyToOne(() => Rol, (rol) => rol.usuario)
   rol: Rol;
 
-  @OneToMany(() => Prestamo, (prestamo) => prestamo.cedula)
+  @OneToMany(() => Prestamo, (prestamo) => prestamo.usuario)
   prestamo : Prestamo[];
 }

@@ -7,32 +7,41 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class EstadoPrestamoService {
-
   constructor(
-    @InjectRepository(EstadoPrestamo) private estadoPrestamo: Repository<EstadoPrestamo>
-  ){}
+    @InjectRepository(EstadoPrestamo)
+    private estadoPrestamoRepository: Repository<EstadoPrestamo>,
+  ) {}
 
-  createEstadoPrestamo(createEstadoPrestamoDto: CreateEstadoPrestamoDto) {
-    return this.estadoPrestamo.insert(createEstadoPrestamoDto);
+  async createEstadoPrestamo(createEstadoPrestamoDto: CreateEstadoPrestamoDto) {
+    return await this.estadoPrestamoRepository.insert(createEstadoPrestamoDto);
   }
 
-  getEstadoPrestamos() {
-    return this.estadoPrestamo.find();
+  async getEstadoPrestamos() {
+    return await this.estadoPrestamoRepository.find();
   }
 
-  getEstadoPrestamo(id: number) {
-    return this.estadoPrestamo.findOne({
-      where: {
-        id
-      }
+  async getEstadoPrestamo(id: number) {
+    return await this.estadoPrestamoRepository.findOne({ where: { id: id } });
+  }
+  async getEstadoPrestamoByEstado(
+    estado = 'Prestado',
+  ): Promise<EstadoPrestamo> {
+    return await this.estadoPrestamoRepository.findOne({
+      where: { estado: estado },
     });
   }
 
-  updateEstadoPrestamo(id: number, updateEstadoPrestamoDto: UpdateEstadoPrestamoDto) {
-    return this.estadoPrestamo.update({id}, updateEstadoPrestamoDto);
+  updateEstadoPrestamo(
+    id: number,
+    updateEstadoPrestamoDto: UpdateEstadoPrestamoDto,
+  ) {
+    return this.estadoPrestamoRepository.update(
+      { id },
+      updateEstadoPrestamoDto,
+    );
   }
 
   deleteEstadoPrestamo(id: number) {
-    return this.estadoPrestamo.delete({id});
+    return this.estadoPrestamoRepository.delete({ id });
   }
 }

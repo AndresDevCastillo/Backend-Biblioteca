@@ -7,31 +7,31 @@ import { CreateUsuarioDto } from './dto/create-usuario.dto';
 
 @Injectable()
 export class UsuarioService {
-    constructor(
-        @InjectRepository(Usuario) private  usuarioRepository: Repository<Usuario>
-    ){}
+  constructor(
+    @InjectRepository(Usuario) private usuarioRepository: Repository<Usuario>,
+  ) {}
 
-    createUsuario(usuario: CreateUsuarioDto){
-        return this.usuarioRepository.insert(usuario)
-    }
+  createUsuario(usuario: CreateUsuarioDto) {
+    return this.usuarioRepository.insert(usuario);
+  }
 
-    getUsuarios(){
-        return this.usuarioRepository.find();
-    }
-    
-    getUsuario(id: number){
-        return this.usuarioRepository.findOne({
-            where: {
-                id
-            }
-        });
-    }
+  async getUsuarios() {
+    return await this.usuarioRepository.find();
+  }
 
-    deleteUsuario(id:number){
-        return this.usuarioRepository.delete({id});
-    }
+  getUsuario(id: number) {
+    return this.usuarioRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
 
-    updateUsuario(id: number, usuario: UpdateUsuarioDto){
-        return this.usuarioRepository.update({id}, usuario);
-    }
+  deleteUsuario(id: number) {
+    return this.usuarioRepository.delete({ id });
+  }
+
+  updateUsuario(id: number, usuario: UpdateUsuarioDto) {
+    return this.usuarioRepository.update({ id }, usuario);
+  }
 }

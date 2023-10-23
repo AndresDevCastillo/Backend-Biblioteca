@@ -8,6 +8,6 @@ import { EstadoPrestamo } from './entities/estado-prestamo.entity';
   imports: [TypeOrmModule.forFeature([EstadoPrestamo])],
   controllers: [EstadoPrestamoController],
   providers: [EstadoPrestamoService],
-  exports: [TypeOrmModule]
+  exports: [TypeOrmModule, EstadoPrestamoService]
 })
 export class EstadoPrestamoModule {}

@@ -35,4 +35,15 @@ export class EquipoService {
   async deleteEquipo(id: number) {
     return await this.equipoRepository.delete({ id });
   }
+
+  /**
+  @param estado Estado del equipo, Ej: Bueno, En reparación, etc.
+  @param tipo Id del tipo de equipo, Ej: 1 - Portátil, 2 - VideoBeam, etc.
+   */
+  async getEquiposByEstadoAndTipo(estado: string, tipo: number) {
+    return await this.equipoRepository.findBy({
+      estado_equipo: { estado: estado },
+      tipo_equipo: { id: tipo },
+    });
+  }
 }

@@ -1,18 +1,26 @@
-import { Equipo } from "src/equipo/entities/equipo.entity";
-import { Prestamo } from "src/prestamo/entities/prestamo.entity";
-import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Equipo } from 'src/equipo/entities/equipo.entity';
+import { Prestamo } from 'src/prestamo/entities/prestamo.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class DetallePrestamo {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id : number;
-    
-    @OneToOne(() => Prestamo)
-    @JoinColumn()   
-    prestamo : Prestamo;
-    
-    @ManyToOne(() => Equipo , (equipo) => equipo.detalle_prestamo)
-    equipo : Equipo;
+  @Column({ type: 'datetime', default: () => 'NOW()' })
+  fecha_inicio: Date;
 
+  @Column({ type: 'datetime', nullable: true })
+  fecha_fin: Date;
+
+  @ManyToOne(() => Prestamo, (prestamo) => prestamo.detalle, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  prestamo: Prestamo;
+
+  @ManyToOne(() => Equipo, (equipo) => equipo.detalle_prestamo, {
+    eager: true,
+  })
+  equipo: Equipo;
 }

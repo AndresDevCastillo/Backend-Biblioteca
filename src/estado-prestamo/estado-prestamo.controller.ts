@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { EstadoPrestamoService } from './estado-prestamo.service';
 import { CreateEstadoPrestamoDto } from './dto/create-estado-prestamo.dto';
 import { UpdateEstadoPrestamoDto } from './dto/update-estado-prestamo.dto';
@@ -8,27 +17,39 @@ import { EstadoPrestamo } from './entities/estado-prestamo.entity';
 export class EstadoPrestamoController {
   constructor(private readonly estadoPrestamoService: EstadoPrestamoService) {}
 
-  @Post()
-  createEstadoPrestamo(@Body() createEstadoPrestamoDto: CreateEstadoPrestamoDto) {
-    return this.estadoPrestamoService.createEstadoPrestamo(createEstadoPrestamoDto);
+  @Post('/crear')
+  createEstadoPrestamo(
+    @Body() createEstadoPrestamoDto: CreateEstadoPrestamoDto,
+  ) {
+    return this.estadoPrestamoService.createEstadoPrestamo(
+      createEstadoPrestamoDto,
+    );
   }
 
   @Get()
-  getEstadoPrestamos(): Promise<EstadoPrestamo[]> {
-    return this.estadoPrestamoService.getEstadoPrestamos();
+  async getEstadoPrestamos(): Promise<EstadoPrestamo[]> {
+    return await this.estadoPrestamoService.getEstadoPrestamos();
   }
 
-  @Get(':id')
-  getEstadoPrestamo(@Param('id', ParseIntPipe) id: number): Promise<EstadoPrestamo> {
+  @Get('/:id')
+  getEstadoPrestamo(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<EstadoPrestamo> {
     return this.estadoPrestamoService.getEstadoPrestamo(id);
   }
 
   @Patch(':id')
-  updateEstadoPrestamo(@Param('id', ParseIntPipe) id: number, @Body() updateEstadoPrestamoDto: UpdateEstadoPrestamoDto) {
-    return this.estadoPrestamoService.updateEstadoPrestamo(id, updateEstadoPrestamoDto);
+  updateEstadoPrestamo(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateEstadoPrestamoDto: UpdateEstadoPrestamoDto,
+  ) {
+    return this.estadoPrestamoService.updateEstadoPrestamo(
+      id,
+      updateEstadoPrestamoDto,
+    );
   }
 
-  @Delete(':id')
+  @Delete('/:id')
   deleteEstadoPrestamo(@Param('id') id: number) {
     return this.estadoPrestamoService.deleteEstadoPrestamo(id);
   }

@@ -30,7 +30,7 @@ export class Equipo {
 
   @ManyToOne(() => TipoEquipo, (tipo_equipo) => tipo_equipo.equipo, {
     eager: true,
-  })
+})
   tipo_equipo: TipoEquipo;
 
   @OneToMany(
