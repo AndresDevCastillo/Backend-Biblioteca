@@ -22,16 +22,16 @@ export class UsuarioService {
   getUsuario(id: number) {
     return this.usuarioRepository.findOne({
       where: {
-        id,
+        cedula: id,
       },
     });
   }
 
   deleteUsuario(id: number) {
-    return this.usuarioRepository.delete({ id });
+    return this.usuarioRepository.delete({ cedula: id });
   }
 
   updateUsuario(id: number, usuario: UpdateUsuarioDto) {
-    return this.usuarioRepository.update({ id }, usuario);
+    return this.usuarioRepository.update({ cedula: id }, usuario);
   }
 }

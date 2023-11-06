@@ -1,15 +1,15 @@
 import { Prestamo } from 'src/prestamo/entities/prestamo.entity';
 import { Rol } from 'src/rol/entities/rol.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Usuario {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  cedula: number;
 
   @Column({ type: 'varchar', length: 80 })
   nombre: string;
-  
+
   @Column({ type: 'varchar', length: 80 })
   apellido: string;
 
@@ -19,12 +19,12 @@ export class Usuario {
   @Column({ type: 'varchar', length: 50 })
   email: string;
 
-  @Column({type: 'varchar', length: 256})
+  @Column({ type: 'varchar', length: 256 })
   contrasena: string;
 
   @ManyToOne(() => Rol, (rol) => rol.usuario)
   rol: Rol;
 
   @OneToMany(() => Prestamo, (prestamo) => prestamo.usuario)
-  prestamo : Prestamo[];
+  prestamo: Prestamo[];
 }

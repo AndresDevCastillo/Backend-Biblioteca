@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Prestamo } from './entities/prestamo.entity';
 import { DataSource, Repository } from 'typeorm';
 import { EquipoService } from 'src/equipo/equipo.service';
-import { Equipo } from 'src/equipo/entities/equipo.entity';
 import { DetallePrestamoService } from 'src/detalle-prestamo/detalle-prestamo.service';
 import { EstadoPrestamoService } from 'src/estado-prestamo/estado-prestamo.service';
 
@@ -114,7 +113,7 @@ export class PrestamoService {
   async getPrestamo(id: number) {
     return await this.prestamoRepository.find({
       where: {
-        usuario: { id: id },
+        usuario: { cedula: id },
       },
     });
   }

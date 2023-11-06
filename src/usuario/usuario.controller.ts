@@ -37,7 +37,7 @@ export class UsuarioController {
     return this.usuarioService.deleteUsuario(id);
   }
 
-  @Put('/actualizar/id')
+  @Put('/actualizar/:id')
   updateUsuario(
     @Param('id', ParseIntPipe) id: number,
     @Body() usuario: UpdateUsuarioDto,

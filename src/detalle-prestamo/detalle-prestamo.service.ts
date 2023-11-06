@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DetallePrestamo } from './entities/detalle-prestamo.entity';
 import {
   DataSource,
+  In,
   LessThanOrEqual,
   MoreThanOrEqual,
   Repository,
@@ -21,7 +22,7 @@ export class DetallePrestamoService {
   async createDetallePrestamo(
     detallePrestamo: CreateDetallePrestamoDto[] | any[],
   ) {
-    console.log('detall', detallePrestamo);
+    //console.log('detall', detallePrestamo);
 
     return await this.dataSource
       .getRepository(DetallePrestamo)
@@ -77,10 +78,12 @@ export class DetallePrestamoService {
           fecha_inicio: MoreThanOrEqual(fecha_inicio),
           fecha_fin: LessThanOrEqual(fecha_fin),
           equipo: { id: idEquipo },
-          prestamo: { estado_prestamo: { id: 2 } },
+          prestamo: { estado_prestamo: { id: In([1, 2]) } },
         },
       })
       .then((detalle) => {
+        console.log('detalePres', detalle);
+
         return detalle.length > 0;
       })
       .catch((error) => {
