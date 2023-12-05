@@ -5,7 +5,6 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { EstadoEquipo } from 'src/estado-equipo/entities/estado-equipo.entity';
 import { TipoEquipo } from 'src/tipo-equipo/entities/tipo-equipo.entity';
 
 export class CreateEquipoDto {
@@ -29,9 +28,6 @@ export class CreateEquipoDto {
   @MinLength(1)
   @MaxLength(30)
   readonly serial: string;
-
-  @IsNotEmpty()
-  readonly estado_equipo: EstadoEquipo;
 
   @IsNotEmpty()
   readonly tipo_equipo: TipoEquipo;

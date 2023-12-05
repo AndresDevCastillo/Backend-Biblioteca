@@ -2,13 +2,7 @@ import { DetallePrestamo } from 'src/detalle-prestamo/entities/detalle-prestamo.
 import { EstadoPrestamo } from 'src/estado-prestamo/entities/estado-prestamo.entity';
 import { Novedad } from 'src/novedad/entities/novedad.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Prestamo {

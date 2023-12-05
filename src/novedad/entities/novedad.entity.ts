@@ -1,3 +1,4 @@
+import { Equipo } from 'src/equipo/entities/equipo.entity';
 import { Prestamo } from 'src/prestamo/entities/prestamo.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -12,16 +13,13 @@ export class Novedad {
   @Column({ type: 'datetime', default: () => 'NOW()' })
   fecha_novedad: Date;
 
-  @Column({ type: 'varchar', length: 20 })
-  tipo_novedad: string;
-
-  @Column({ type: 'boolean' })
-  estado_novedad: boolean;
-
   @ManyToOne(() => Prestamo, (prestamo) => prestamo.novedad, {
     cascade: true,
     onDelete: 'CASCADE',
     nullable: false,
   })
   prestamo: Prestamo;
+
+  @ManyToOne(() => Equipo, (equipo) => equipo.novedad)
+  equipo: Equipo;
 }

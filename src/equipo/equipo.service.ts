@@ -13,7 +13,10 @@ export class EquipoService {
   ) {}
 
   async createEquipo(createEquipoDto: CreateEquipoDto) {
-    return await this.equipoRepository.insert(createEquipoDto);
+    return await this.equipoRepository.insert({
+      ...createEquipoDto,
+      estado_equipo: { id: 1 },
+    });
   }
 
   async getEquipos() {
@@ -25,6 +28,12 @@ export class EquipoService {
       where: {
         id,
       },
+    });
+  }
+
+  async actualizarEstadoEquipo(id_equipo: number, id_estado: number) {
+    return await this.equipoRepository.update(id_equipo, {
+      estado_equipo: { id: id_estado },
     });
   }
 

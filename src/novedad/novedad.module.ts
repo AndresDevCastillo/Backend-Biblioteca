@@ -8,6 +8,6 @@ import { Novedad } from './entities/novedad.entity';
   imports: [TypeOrmModule.forFeature([Novedad])],
   controllers: [NovedadController],
   providers: [NovedadService],
-  exports: [TypeOrmModule]
+  exports: [TypeOrmModule, NovedadService],
 })
 export class NovedadModule {}
