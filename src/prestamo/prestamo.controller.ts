@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, Delete, ParseIntPipe, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseIntPipe,
+  Put,
+} from '@nestjs/common';
 import { PrestamoService } from './prestamo.service';
 import { CreatePrestamoDto } from './dto/create-prestamo.dto';
 import { UpdatePrestamoDto } from './dto/update-prestamo.dto';
@@ -13,7 +22,7 @@ export class PrestamoController {
     return this.prestamoService.createPrestamo(createPrestamoDto);
   }
 
-  @Get('/obtenerUsuarios')
+  @Get('/obtenerPrestamos')
   getPrestamos(): Promise<Prestamo[]> {
     return this.prestamoService.getPrestamos();
   }
@@ -24,7 +33,10 @@ export class PrestamoController {
   }
 
   @Put('/actualizar/:id')
-  updatePrestamo(@Param('id', ParseIntPipe) id: number, @Body() updatePrestamoDto: UpdatePrestamoDto) {
+  updatePrestamo(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePrestamoDto: UpdatePrestamoDto,
+  ) {
     return this.prestamoService.updatePrestamo(id, updatePrestamoDto);
   }
 
