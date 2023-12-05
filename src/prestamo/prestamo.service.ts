@@ -50,6 +50,8 @@ export class PrestamoService {
               createPrestamoDto.fecha_inicio,
               createPrestamoDto.fecha_fin,
             );
+            console.log('Puedeu: ', equipoPrestado);
+
             if (!equipoPrestado) {
               detalleEquipoPrestamo.push({
                 fecha_inicio: createPrestamoDto.fecha_inicio,

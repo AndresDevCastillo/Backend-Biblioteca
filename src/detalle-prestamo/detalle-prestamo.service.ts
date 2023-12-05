@@ -4,6 +4,7 @@ import { UpdateDetallePrestamoDto } from './dto/update-detalle-prestamo.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DetallePrestamo } from './entities/detalle-prestamo.entity';
 import {
+  Between,
   DataSource,
   In,
   LessThanOrEqual,
@@ -74,12 +75,24 @@ export class DetallePrestamoService {
     return await this.dataSource
       .getRepository(DetallePrestamo)
       .find({
-        where: {
-          fecha_inicio: MoreThanOrEqual(fecha_inicio),
-          fecha_fin: LessThanOrEqual(fecha_fin),
-          equipo: { id: idEquipo },
-          prestamo: { estado_prestamo: { id: In([1, 2]) } },
-        },
+        where: [
+          {
+            equipo: { id: idEquipo },
+            fecha_inicio: MoreThanOrEqual(fecha_inicio),
+            fecha_fin: LessThanOrEqual(fecha_inicio),
+            prestamo: { estado_prestamo: { id: In([1, 2]) } },
+          },
+          {
+            equipo: { id: idEquipo },
+            fecha_inicio: Between(fecha_inicio, fecha_fin),
+            prestamo: { estado_prestamo: { id: In([1, 2]) } },
+          },
+          {
+            equipo: { id: idEquipo },
+            fecha_fin: Between(fecha_inicio, fecha_fin),
+            prestamo: { estado_prestamo: { id: In([1, 2]) } },
+          },
+        ],
       })
       .then((detalle) => {
         console.log('detalePres', detalle);
@@ -90,5 +103,31 @@ export class DetallePrestamoService {
         console.log(error);
         return true;
       });
+    /* return await this.dataSource
+      .getRepository(DetallePrestamo)
+      .createQueryBuilder('detallePrestamo')
+      .where('detallePrestamo.fecha_inicio >= :fecha_inicio', {
+        fecha_inicio: fecha_inicio,
+      })
+      .andWhere('detallePrestamo.fecha_fin <= :fecha_fin', {
+        fecha_fin: fecha_fin,
+      })
+      .orWhere('detallePrestamo.fecha_inicio >= :fecha_inicio', {
+        fecha_inicio: fecha_inicio,
+      })
+      .orWhere('detallePrestamo.fecha_inicio >= :fecha_inicio', {
+        fecha_inicio: fecha_inicio,
+      })
+      .getMany()
+      .then((detalle) => {
+        console.log('detalePres', detalle);
+
+        return detalle.length > 0;
+      })
+      .catch((error) => {
+        console.log(error);
+        return true;
+      });
+ */
   }
 }
