@@ -1,27 +1,45 @@
-import { IsBoolean, IsDate, IsNotEmpty, IsString, Matches, MaxLength, MinLength, isNotEmpty } from "class-validator";
+import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+import { Equipo } from 'src/equipo/entities/equipo.entity';
+import { EstadoEquipo } from 'src/estado-equipo/entities/estado-equipo.entity';
+import { EstadoPrestamo } from 'src/estado-prestamo/entities/estado-prestamo.entity';
+import { Prestamo } from 'src/prestamo/entities/prestamo.entity';
 
 export class CreateNovedadDto {
+  @IsString()
+  @IsNotEmpty()
+  @Matches(/^(?!\s*$).+/, { message: 'El Estado no puede ser estar vacío' })
+  @MinLength(1)
+  @MaxLength(256)
+  readonly descripcion: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @Matches(/^(?!\s*$).+/, { message: 'El Estado no puede ser estar vacío' })
-    @MinLength(1)
-    @MaxLength(256)
-    readonly descripcion: string;
+  @IsInt()
+  @IsNotEmpty()
+  equipo: Equipo;
 
-    @IsDate()
-    @IsNotEmpty()
-    readonly fecha_novedad: Date;
+  @IsInt()
+  @IsNotEmpty()
+  estado_equipo: EstadoEquipo;
+}
 
-    @IsString()
-    @IsNotEmpty()
-    @Matches(/^(?!\s*$).+/, { message: 'El Estado no puede ser estar vacío' })
-    @MinLength(1)
-    @MaxLength(256)
-    readonly tipo_novedad: string;
+export class novedadGeneral {
+  @IsInt()
+  @IsNotEmpty()
+  prestamo: Prestamo;
 
-    @IsBoolean()
-    @IsNotEmpty()
-    readonly estado_novedad: boolean;
+  @IsInt()
+  @IsNotEmpty()
+  estado_prestamo: EstadoPrestamo;
 
+  @IsArray()
+  novedades: CreateNovedadDto[];
 }

@@ -1,5 +1,6 @@
 import { DetallePrestamo } from 'src/detalle-prestamo/entities/detalle-prestamo.entity';
 import { EstadoEquipo } from 'src/estado-equipo/entities/estado-equipo.entity';
+import { Novedad } from 'src/novedad/entities/novedad.entity';
 import { TipoEquipo } from 'src/tipo-equipo/entities/tipo-equipo.entity';
 import {
   Column,
@@ -30,7 +31,7 @@ export class Equipo {
 
   @ManyToOne(() => TipoEquipo, (tipo_equipo) => tipo_equipo.equipo, {
     eager: true,
-})
+  })
   tipo_equipo: TipoEquipo;
 
   @OneToMany(
@@ -38,4 +39,7 @@ export class Equipo {
     (detalle_prestamo) => detalle_prestamo.equipo,
   )
   detalle_prestamo: DetallePrestamo[];
+
+  @OneToMany(() => Novedad, (novedad) => novedad.equipo)
+  novedad: Novedad[];
 }
