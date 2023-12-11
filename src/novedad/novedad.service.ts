@@ -15,6 +15,7 @@ export class NovedadService {
   createNovedad(createNovedadDto: CreateNovedadDto) {
     return this.novedadRepository.insert(createNovedadDto);
   }
+  
   async crearNovedades(novedades: CreateNovedadDto[]) {
     return await this.dataSource
       .getRepository(Novedad)
