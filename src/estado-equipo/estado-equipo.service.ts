@@ -16,8 +16,8 @@ export class EstadoEquipoService {
     return this.estadoEquipoRepository.insert(createEstadoEquipoDto);
   }
 
-  getEstadoEquipos() {
-    return this.estadoEquipoRepository.find();
+  async getEstadoEquipos() {
+    return await this.estadoEquipoRepository.find();
   }
 
   getEstadoEquipo(id: number) {
