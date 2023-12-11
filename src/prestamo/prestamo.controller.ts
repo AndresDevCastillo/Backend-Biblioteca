@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { PrestamoService } from './prestamo.service';
 import { CreatePrestamoDto } from './dto/create-prestamo.dto';
-import { UpdatePrestamoDto } from './dto/update-prestamo.dto';
 import { Prestamo } from './entities/prestamo.entity';
+import { EntregaDto } from './dto/entrega.dto';
 
 @Controller('prestamo')
 export class PrestamoController {
@@ -22,6 +22,10 @@ export class PrestamoController {
     return await this.prestamoService.createPrestamo(createPrestamoDto);
   }
 
+  @Post('/entregar')
+  async entregar(@Body() entrega: EntregaDto) {
+    return await this.prestamoService.entregar(entrega);
+  }
   @Get('/obtenerUsuarios')
   getPrestamos(): Promise<Prestamo[]> {
     return this.prestamoService.getPrestamos();

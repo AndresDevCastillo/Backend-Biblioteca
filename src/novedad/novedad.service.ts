@@ -1,37 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { CreateNovedadDto, novedadGeneral } from './dto/create-novedad.dto';
+import { CreateNovedadDto } from './dto/create-novedad.dto';
 import { UpdateNovedadDto } from './dto/update-novedad.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Novedad } from './entities/novedad.entity';
-import { Repository } from 'typeorm';
-import { Equipo } from 'src/equipo/entities/equipo.entity';
-import { Prestamo } from 'src/prestamo/entities/prestamo.entity';
+import { DataSource, Repository } from 'typeorm';
 
 @Injectable()
 export class NovedadService {
   constructor(
     @InjectRepository(Novedad) private novedadRepository: Repository<Novedad>,
-    @InjectRepository(Equipo) private equipoRepository: Repository<Equipo>,
-    @InjectRepository(Prestamo)
-    private prestamoRepository: Repository<Prestamo>,
+    private dataSource: DataSource,
   ) {}
 
-  async createNovedad(novedadG: novedadGeneral) {
-    await this.prestamoRepository.update(novedadG.prestamo, {
-      estado_prestamo: novedadG.estado_prestamo,
-    });
-    novedadG.novedades.forEach(async (novedad) => {
-      await this.equipoRepository.update(novedad.equipo, {
-        estado_equipo: novedad.estado_equipo,
-      });
-      await this.novedadRepository.insert({
-        descripcion: novedad.descripcion,
-        equipo: novedad.equipo,
-        prestamo: novedadG.prestamo,
-      });
-    });
+  createNovedad(createNovedadDto: CreateNovedadDto) {
+    return this.novedadRepository.insert(createNovedadDto);
   }
 
+  async crearNovedades(novedades: CreateNovedadDto[]) {
+    return await this.dataSource
+      .getRepository(Novedad)
+      .createQueryBuilder()
+      .insert()
+      .into(Novedad)
+      .values(novedades)
+      .execute();
+  }
   getNovedades() {
     return this.novedadRepository.find();
   }

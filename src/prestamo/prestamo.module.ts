@@ -9,6 +9,8 @@ import { DetallePrestamoModule } from 'src/detalle-prestamo/detalle-prestamo.mod
 import { DetallePrestamoService } from 'src/detalle-prestamo/detalle-prestamo.service';
 import { EstadoPrestamoModule } from 'src/estado-prestamo/estado-prestamo.module';
 import { EstadoPrestamoService } from 'src/estado-prestamo/estado-prestamo.service';
+import { NovedadModule } from 'src/novedad/novedad.module';
+import { NovedadService } from 'src/novedad/novedad.service';
 
 @Module({
   imports: [
@@ -16,6 +18,7 @@ import { EstadoPrestamoService } from 'src/estado-prestamo/estado-prestamo.servi
     EquipoModule,
     DetallePrestamoModule,
     EstadoPrestamoModule,
+    NovedadModule,
   ],
   controllers: [PrestamoController],
   providers: [
@@ -23,6 +26,7 @@ import { EstadoPrestamoService } from 'src/estado-prestamo/estado-prestamo.servi
     EquipoService,
     DetallePrestamoService,
     EstadoPrestamoService,
+    NovedadService,
   ],
   exports: [TypeOrmModule],
 })

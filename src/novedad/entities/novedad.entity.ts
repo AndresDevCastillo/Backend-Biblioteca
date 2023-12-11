@@ -13,17 +13,13 @@ export class Novedad {
   @Column({ type: 'datetime', default: () => 'NOW()' })
   fecha_novedad: Date;
 
-  @ManyToOne(() => Equipo, (equipo) => equipo.novedad, {
-    cascade: true,
-    onDelete: 'CASCADE',
-    nullable: false,
-  })
-  equipo: Equipo;
-
   @ManyToOne(() => Prestamo, (prestamo) => prestamo.novedad, {
     cascade: true,
     onDelete: 'CASCADE',
     nullable: false,
   })
   prestamo: Prestamo;
+
+  @ManyToOne(() => Equipo, (equipo) => equipo.novedad)
+  equipo: Equipo;
 }

@@ -10,6 +10,6 @@ import { Prestamo } from 'src/prestamo/entities/prestamo.entity';
   imports: [TypeOrmModule.forFeature([Novedad, Equipo, Prestamo])],
   controllers: [NovedadController],
   providers: [NovedadService],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, NovedadService],
 })
 export class NovedadModule {}

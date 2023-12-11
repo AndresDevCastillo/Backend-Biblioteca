@@ -7,6 +7,8 @@ import { DataSource, Repository } from 'typeorm';
 import { EquipoService } from 'src/equipo/equipo.service';
 import { DetallePrestamoService } from 'src/detalle-prestamo/detalle-prestamo.service';
 import { EstadoPrestamoService } from 'src/estado-prestamo/estado-prestamo.service';
+import { EntregaDto } from './dto/entrega.dto';
+import { NovedadService } from 'src/novedad/novedad.service';
 
 @Injectable()
 export class PrestamoService {
@@ -19,6 +21,7 @@ export class PrestamoService {
     private detallePrestamoService: DetallePrestamoService,
     @Inject(EstadoPrestamoService)
     private estadoPrestamoService: EstadoPrestamoService,
+    @Inject(NovedadService) private novedadService: NovedadService,
   ) {}
 
   async createPrestamo(createPrestamoDto: CreatePrestamoDto) {
@@ -123,7 +126,7 @@ export class PrestamoService {
     const exist = await this.existPrestamo(id);
     if (exist) {
       const estadoPrestamo =
-        await this.estadoPrestamoService.getEstadoPrestamoByEstado('Prestado');
+        await this.estadoPrestamoService.getEstadoPrestamoByEstado('Entregado');
       if (estadoPrestamo) {
         await this.prestamoRepository.update(
           { id: id },
@@ -134,6 +137,34 @@ export class PrestamoService {
     }
     return { confirm: false, message: 'No existe el préstamo' };
   }
+
+  async entregar(entrega: EntregaDto) {
+    //this.novedadService.createNovedad();
+    const novedades: any = entrega.equipos.map((equipo) => {
+      return {
+        descripcion: equipo.observacion,
+        prestamo: entrega.idPrestamo,
+        equipo: equipo.id_equipo,
+      };
+    });
+    const novedadCreate = await this.novedadService.crearNovedades(novedades);
+    if (novedadCreate) {
+      const estadoP =
+        await this.estadoPrestamoService.getEstadoPrestamoByEstado('Devuelto');
+      for (const equipo of entrega.equipos) {
+        await this.equipoService.actualizarEstadoEquipo(
+          equipo.id_equipo,
+          equipo.estado_equipo,
+        );
+      }
+      await this.prestamoRepository.update(entrega.idPrestamo, {
+        estado_prestamo: { id: estadoP.id },
+      });
+      return true;
+    }
+    return false;
+  }
+
   updatePrestamo(id: number, updatePrestamoDto: UpdatePrestamoDto) {
     return this.prestamoRepository.update(id, updatePrestamoDto);
   }
