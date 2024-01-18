@@ -16,7 +16,7 @@ export class UsuarioService {
   }
 
   async getUsuarios() {
-    return await this.usuarioRepository.find();
+    return await this.usuarioRepository.find({ relations: ['rol'] });
   }
 
   getUsuario(id: number) {
@@ -24,6 +24,7 @@ export class UsuarioService {
       where: {
         cedula: id,
       },
+      relations: ['rol'],
     });
   }
 

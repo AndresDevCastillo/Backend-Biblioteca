@@ -29,16 +29,16 @@ export class DetallePrestamoController {
     );
   }
 
-  @Get('/obtenerDetallesPrestamos')
+  @Get()
   getDetallePrestamos(): Promise<DetallePrestamo[]> {
     return this.detallePrestamoService.getDetallePrestamos();
   }
 
-  @Get('/detallePrestamo/:id')
-  getDetallePrestamo(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<DetallePrestamo> {
-    return this.detallePrestamoService.getDetallePrestamo(id);
+  @Get('/:idPrestamo')
+  async getDetallePrestamo(
+    @Param('idPrestamo', ParseIntPipe) idPrestamo: number,
+  ): Promise<DetallePrestamo[]> {
+    return await this.detallePrestamoService.getDetallePrestamo(idPrestamo);
   }
 
   @Put('/actualizar/:id')
