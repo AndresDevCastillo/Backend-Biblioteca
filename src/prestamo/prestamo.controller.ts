@@ -27,7 +27,7 @@ export class PrestamoController {
     return await this.prestamoService.entregar(id);
   }
   @Post('/devolucion')
-  async devolucion(@Body() devolucion:EntregaDto){
+  async devolucion(@Body() devolucion: EntregaDto) {
     return await this.prestamoService.devolucion(devolucion);
   }
   @Get()
