@@ -1,6 +1,15 @@
-import { Controller, Get, Post, Body,Param, Delete, ParseIntPipe, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseIntPipe,
+  Put,
+} from '@nestjs/common';
 import { NovedadService } from './novedad.service';
-import { CreateNovedadDto } from './dto/create-novedad.dto';
+import { CreateNovedadDto, novedadGeneral } from './dto/create-novedad.dto';
 import { UpdateNovedadDto } from './dto/update-novedad.dto';
 import { Novedad } from './entities/novedad.entity';
 
@@ -8,9 +17,9 @@ import { Novedad } from './entities/novedad.entity';
 export class NovedadController {
   constructor(private readonly novedadService: NovedadService) {}
 
-  @Post('/crearNovedad')
-  createNovedad(@Body() createNovedadDto: CreateNovedadDto) {
-    return this.novedadService.createNovedad(createNovedadDto);
+  @Post('/crear')
+  async createNovedad(@Body() novedadGeneral: novedadGeneral) {
+    return this.novedadService.createNovedad(novedadGeneral);
   }
 
   @Get('/obtenerUsuarios')
@@ -24,7 +33,10 @@ export class NovedadController {
   }
 
   @Put('/actualizar/:id')
-  updateNovedad(@Param('id', ParseIntPipe) id: number, @Body() updateNovedadDto: UpdateNovedadDto) {
+  updateNovedad(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateNovedadDto: UpdateNovedadDto,
+  ) {
     return this.novedadService.updateNovedad(id, updateNovedadDto);
   }
 
