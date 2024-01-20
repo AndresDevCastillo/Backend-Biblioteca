@@ -12,16 +12,20 @@ import { UsuarioService } from './usuario.service';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
+import { IniciarSesionDto } from './dto/iniciarSesion.dto';
 
 @Controller('usuario')
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
-  @Post('/crearUsuario')
+  @Post('/crear')
   createUsuario(@Body() newUsuario: CreateUsuarioDto) {
     return this.usuarioService.createUsuario(newUsuario);
   }
-
+  @Post('/iniciarSesion')
+  async iniciarSesion(@Body() usuario: IniciarSesionDto) {
+    return await this.usuarioService.iniciarSesion(usuario);
+  }
   @Get()
   async getUsuarios(): Promise<Usuario[]> {
     return await this.usuarioService.getUsuarios();
