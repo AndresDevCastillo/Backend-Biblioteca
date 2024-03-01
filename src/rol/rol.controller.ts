@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Put, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Put, Post, UseGuards } from '@nestjs/common';
 import { RolService} from './rol.service';
 import { CreateRolDto } from './dto/create-rol.dto';
 import { UpdateRolDto } from './dto/update-rol.dto';
 import { Rol } from './entities/rol.entity';
+import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 
 @Controller('rol')
 export class RolController {
@@ -12,8 +13,8 @@ export class RolController {
   createRol(@Body() createrolDto: CreateRolDto) {
     return this.rolService.createRol(createrolDto);
   }
-
-  @Get('/obtenerUsuarios')
+  @UseGuards(JwtAuthGuard) 
+  @Get('/obtenerUsuario s')
   getRoles():Promise<Rol[]> {
     return this.rolService.getRoles();
   }

@@ -22,6 +22,8 @@ import { Novedad } from './novedad/entities/novedad.entity';
 import { Prestamo } from './prestamo/entities/prestamo.entity';
 import { EstadoPrestamo } from './estado-prestamo/entities/estado-prestamo.entity';
 import { DetallePrestamo } from './detalle-prestamo/entities/detalle-prestamo.entity';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -32,9 +34,23 @@ import { DetallePrestamo } from './detalle-prestamo/entities/detalle-prestamo.en
       username: 'root',
       password: '',
       database: 'biblioteca',
-      entities: [EstadoEquipo,TipoEquipo,Rol, Usuario, Equipo, Novedad, Prestamo, EstadoPrestamo, DetallePrestamo],
+      entities: [
+        EstadoEquipo,
+        TipoEquipo,
+        Rol,
+        Usuario,
+        Equipo,
+        Novedad,
+        Prestamo,
+        EstadoPrestamo,
+        DetallePrestamo,
+      ],
       synchronize: true,
-      autoLoadEntities: true
+      autoLoadEntities: true,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
     }),
     EstadoEquipoModule,
     TipoEquipoModule,
@@ -45,10 +61,11 @@ import { DetallePrestamo } from './detalle-prestamo/entities/detalle-prestamo.en
     PrestamoModule,
     EstadoPrestamoModule,
     DetallePrestamoModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) { }
+  constructor(private dataSource: DataSource) {}
 }

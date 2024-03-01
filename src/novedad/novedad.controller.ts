@@ -9,7 +9,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { NovedadService } from './novedad.service';
-import { CreateNovedadDto, novedadGeneral } from './dto/create-novedad.dto';
+import { CreateNovedadDto } from './dto/create-novedad.dto';
 import { UpdateNovedadDto } from './dto/update-novedad.dto';
 import { Novedad } from './entities/novedad.entity';
 
@@ -18,7 +18,7 @@ export class NovedadController {
   constructor(private readonly novedadService: NovedadService) {}
 
   @Post('/crear')
-  async createNovedad(@Body() novedadGeneral: novedadGeneral) {
+  async createNovedad(@Body() novedadGeneral: CreateNovedadDto) {
     return this.novedadService.createNovedad(novedadGeneral);
   }
 
