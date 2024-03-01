@@ -22,7 +22,9 @@ export class Usuario {
   @Column({ type: 'varchar', length: 256 })
   contrasena: string;
 
-  @ManyToOne(() => Rol, (rol) => rol.usuario)
+  @ManyToOne(() => Rol, (rol) => rol.usuario, {
+    eager: true,
+  })
   rol: Rol;
 
   @OneToMany(() => Prestamo, (prestamo) => prestamo.usuario)

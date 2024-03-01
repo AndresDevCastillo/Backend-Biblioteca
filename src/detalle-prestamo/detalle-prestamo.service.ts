@@ -39,10 +39,10 @@ export class DetallePrestamoService {
     return this.detallePrestamoRepository.find();
   }
 
-  getDetallePrestamo(id: number) {
-    return this.detallePrestamoRepository.findOne({
+  async getDetallePrestamo(idPrestamo: number) {
+    return await this.detallePrestamoRepository.find({
       where: {
-        id,
+        prestamo: { id: idPrestamo },
       },
     });
   }

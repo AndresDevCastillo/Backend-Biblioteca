@@ -22,11 +22,15 @@ export class PrestamoController {
     return await this.prestamoService.createPrestamo(createPrestamoDto);
   }
 
-  @Post('/entregar')
-  async entregar(@Body() entrega: EntregaDto) {
-    return await this.prestamoService.entregar(entrega);
+  @Put('/entregar/:id')
+  async entregar(@Param('id') id: number) {
+    return await this.prestamoService.entregar(id);
   }
-  @Get('/obtenerUsuarios')
+  @Post('/devolucion')
+  async devolucion(@Body() devolucion: EntregaDto) {
+    return await this.prestamoService.devolucion(devolucion);
+  }
+  @Get()
   getPrestamos(): Promise<Prestamo[]> {
     return this.prestamoService.getPrestamos();
   }
@@ -41,6 +45,7 @@ export class PrestamoController {
     return await this.prestamoService.confirmar(id);
   }
 
+  //Cancelar préstamo
   @Delete('/:id')
   async deletePrestamo(@Param('id', ParseIntPipe) id: number) {
     return await this.prestamoService.deletePrestamo(id);

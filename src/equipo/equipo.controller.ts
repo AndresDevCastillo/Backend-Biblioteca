@@ -19,7 +19,7 @@ export class EquipoController {
   constructor(private readonly equipoService: EquipoService) {}
 
   @Post('/crear')
- async createEquipo(@Body() CreateEquipoDto: CreateEquipoDto) {
+  async createEquipo(@Body() CreateEquipoDto: CreateEquipoDto) {
     return await this.equipoService.createEquipo(CreateEquipoDto);
   }
   @Get()

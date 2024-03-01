@@ -20,6 +20,8 @@ export class Novedad {
   })
   prestamo: Prestamo;
 
-  @ManyToOne(() => Equipo, (equipo) => equipo.novedad)
+  @ManyToOne(() => Equipo, (equipo) => equipo.novedad, {
+    nullable: false,
+  })
   equipo: Equipo;
 }

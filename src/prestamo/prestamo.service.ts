@@ -25,6 +25,8 @@ export class PrestamoService {
   ) {}
 
   async createPrestamo(createPrestamoDto: CreatePrestamoDto) {
+    console.log('DATOS ANDROID: ', createPrestamoDto);
+
     const msgResp = [];
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
@@ -138,7 +140,19 @@ export class PrestamoService {
     return { confirm: false, message: 'No existe el préstamo' };
   }
 
-  async entregar(entrega: EntregaDto) {
+  async entregar(idPrestamo: number) {
+    if (idPrestamo) {
+      const estadoP =
+        await this.estadoPrestamoService.getEstadoPrestamoByEstado('Entregado');
+      await this.prestamoRepository.update(idPrestamo, {
+        estado_prestamo: { id: estadoP.id },
+      });
+      return true;
+    }
+    return false;
+  }
+
+  async devolucion(entrega: EntregaDto) {
     //this.novedadService.createNovedad();
     const novedades: any = entrega.equipos.map((equipo) => {
       return {
@@ -164,7 +178,6 @@ export class PrestamoService {
     }
     return false;
   }
-
   updatePrestamo(id: number, updatePrestamoDto: UpdatePrestamoDto) {
     return this.prestamoRepository.update(id, updatePrestamoDto);
   }

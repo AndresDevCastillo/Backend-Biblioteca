@@ -1,11 +1,4 @@
-import {
-  IsArray,
-  IsDate,
-  IsDateString,
-  IsNotEmpty,
-  IsNumber,
-} from 'class-validator';
-import { TipoEquipo } from 'src/tipo-equipo/entities/tipo-equipo.entity';
+import { IsArray, IsDateString, IsNotEmpty, IsNumber } from 'class-validator';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 
 export class CreatePrestamoDto {
@@ -17,10 +10,10 @@ export class CreatePrestamoDto {
   @IsNotEmpty()
   readonly fecha_fin: Date;
 
-  @IsArray()
+  @IsArray({ message: 'Debe ser un arreglo' })
   readonly detalle: PrestamoDetallePrestamoDto[];
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'El usuario no puede estar vacío' })
   readonly usuario: Usuario;
 }
 
