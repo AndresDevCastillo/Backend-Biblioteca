@@ -31,13 +31,22 @@ export class PrestamoController {
     return await this.prestamoService.devolucion(devolucion);
   }
   @Get()
-  getPrestamos(): Promise<Prestamo[]> {
-    return this.prestamoService.getPrestamos();
+  async getPrestamos(): Promise<Prestamo[]> {
+    return await this.prestamoService.getPrestamos();
   }
 
-  @Get('/usuario/:id')
-  async getPrestamo(@Param('id', ParseIntPipe) id: number) {
-    return await this.prestamoService.getPrestamo(id);
+  /**
+   *
+   * @param id Cédula del usuario a listar préstamos
+   * @param action Que quieres hacer, all=listar los préstamos, devolucion=listar préstamos Entregados, entregar=listar préstamos Reservados
+   * @returns Retorna una lista de préstamos según la action
+   */
+  @Get('/usuario/:id/:action')
+  async getPrestamo(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('action') action: string,
+  ) {
+    return await this.prestamoService.getPrestamo(id, action);
   }
 
   @Put('/confirmar/:id')

@@ -5,11 +5,11 @@ import { Prestamo } from 'src/prestamo/entities/prestamo.entity';
 export class CreateDetallePrestamoDto {
   @IsDateString()
   @IsNotEmpty()
-  readonly fecha_inicio: Date;
+  readonly fecha_inicio: string;
 
   @IsDateString()
   @IsNotEmpty()
-  readonly fecha_fin: Date;
+  readonly fecha_fin: string;
 
   @IsNumber()
   @IsNotEmpty()

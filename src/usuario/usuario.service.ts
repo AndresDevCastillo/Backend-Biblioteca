@@ -51,15 +51,50 @@ export class UsuarioService {
     };
   }
   async getUsuarios() {
-    return await this.usuarioRepository.find({ relations: ['rol'] });
+    return await this.usuarioRepository.find({
+      relations: ['rol'],
+      select: [
+        'cedula',
+        'nombre',
+        'apellido',
+        'email',
+        'telefono',
+        'rol',
+        'prestamo',
+      ],
+    });
   }
 
+  async getInstructores() {
+    return await this.usuarioRepository.find({
+      relations: ['rol'],
+      select: [
+        'cedula',
+        'nombre',
+        'apellido',
+        'email',
+        'telefono',
+        'rol',
+        'prestamo',
+      ],
+      where: { rol: { descripcion: 'Instructor' } },
+    });
+  }
   getUsuario(id: number) {
     return this.usuarioRepository.findOne({
       where: {
         cedula: id,
       },
       relations: ['rol'],
+      select: [
+        'cedula',
+        'nombre',
+        'apellido',
+        'email',
+        'telefono',
+        'rol',
+        'prestamo',
+      ],
     });
   }
 

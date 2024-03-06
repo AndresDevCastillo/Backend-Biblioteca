@@ -1,5 +1,15 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Put, Post, UseGuards } from '@nestjs/common';
-import { RolService} from './rol.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Put,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { RolService } from './rol.service';
 import { CreateRolDto } from './dto/create-rol.dto';
 import { UpdateRolDto } from './dto/update-rol.dto';
 import { Rol } from './entities/rol.entity';
@@ -8,14 +18,14 @@ import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 @Controller('rol')
 export class RolController {
   constructor(private readonly rolService: RolService) {}
-  
+
   @Post('/crearRol')
   createRol(@Body() createrolDto: CreateRolDto) {
     return this.rolService.createRol(createrolDto);
   }
-  @UseGuards(JwtAuthGuard) 
-  @Get('/obtenerUsuario s')
-  getRoles():Promise<Rol[]> {
+  //@UseGuards(JwtAuthGuard)
+  @Get()
+  getRoles(): Promise<Rol[]> {
     return this.rolService.getRoles();
   }
 

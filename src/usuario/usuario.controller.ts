@@ -31,6 +31,11 @@ export class UsuarioController {
     return await this.usuarioService.getUsuarios();
   }
 
+  @Get('/instructor')
+  async getInstructores(): Promise<Usuario[]> {
+    return await this.usuarioService.getInstructores();
+  }
+
   @Get('/usuario/:id')
   getUsuario(@Param('id', ParseIntPipe) id: number): Promise<Usuario> {
     return this.usuarioService.getUsuario(id);

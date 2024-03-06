@@ -95,12 +95,12 @@ export class DetallePrestamoService {
         ],
       })
       .then((detalle) => {
-        console.log('detalePres', detalle);
+        console.log('Equipos encontrados: idEquipo', idEquipo, detalle);
 
         return detalle.length > 0;
       })
       .catch((error) => {
-        console.log(error);
+        console.log('Error en equipo prestados: ', error);
         return true;
       });
     /* return await this.dataSource

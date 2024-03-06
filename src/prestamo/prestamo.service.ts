@@ -55,18 +55,18 @@ export class PrestamoService {
               createPrestamoDto.fecha_inicio,
               createPrestamoDto.fecha_fin,
             );
-            console.log('Puedeu: ', equipoPrestado);
 
-            if (!equipoPrestado) {
-              detalleEquipoPrestamo.push({
-                fecha_inicio: createPrestamoDto.fecha_inicio,
-                fecha_fin: createPrestamoDto.fecha_fin,
-                prestamo: prestamo.raw.insertId,
-                equipo: equipo.id,
-              });
-              detalleEquipo.push(equipo);
-            }
-            if (detalleEquipoPrestamo.length == detalle.cantidad) {
+            if (detalleEquipo.length != detalle.cantidad) {
+              if (!equipoPrestado) {
+                detalleEquipoPrestamo.push({
+                  fecha_inicio: createPrestamoDto.fecha_inicio,
+                  fecha_fin: createPrestamoDto.fecha_fin,
+                  prestamo: prestamo.raw.insertId,
+                  equipo: equipo.id,
+                });
+                detalleEquipo.push(equipo);
+              }
+            } else {
               break;
             }
           }
@@ -117,12 +117,39 @@ export class PrestamoService {
     return await this.prestamoRepository.find();
   }
 
-  async getPrestamo(id: number) {
-    return await this.prestamoRepository.find({
-      where: {
-        usuario: { cedula: id },
-      },
+  async getPrestamo(id: number, action = 'all') {
+    action = action.toLowerCase();
+    let prestamos: Prestamo[];
+    //idEstadoPrestamo = 1 es Reservado, idEstadoPrestamo=2 es Entregado y 3 es Devuelto
+    if (action == 'entregar') {
+      prestamos = await this.prestamoRepository.find({
+        where: {
+          usuario: { cedula: id },
+          estado_prestamo: { id: 1 },
+        },
+        select: ['detalle', 'estado_prestamo', 'id', 'novedad'],
+      });
+    } else if (action == 'devolucion') {
+      prestamos = await this.prestamoRepository.find({
+        where: {
+          usuario: { cedula: id },
+          estado_prestamo: { id: 2 },
+        },
+        select: ['detalle', 'estado_prestamo', 'id', 'novedad'],
+      });
+    } else {
+      prestamos = await this.prestamoRepository.find({
+        where: {
+          usuario: { cedula: id },
+        },
+      });
+    }
+    //Toco hacerlo así, no puedo evitar traer la información del usuario en la consulta
+    prestamos = prestamos.map((prestamo) => {
+      delete prestamo.usuario;
+      return prestamo;
     });
+    return prestamos;
   }
   async confirmar(id: number) {
     const exist = await this.existPrestamo(id);
